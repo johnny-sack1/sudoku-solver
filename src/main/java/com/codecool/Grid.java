@@ -42,5 +42,30 @@ public final class Grid
             System.out.println("");
         }
     }
+
+    public boolean isGridValid(int row, int column, int value)
+    {
+        int rowSubGrid = row / SUBGRID_SIZE * SUBGRID_SIZE;
+        int columnSubGrid = column / SUBGRID_SIZE * SUBGRID_SIZE;
+
+        for (int i = 0; i < SIZE; i++)
+        {
+
+            if (grid[row][i] == value)
+            {
+                return false;
+            }
+            else if (grid[i][column] == value)
+            {
+                return false;
+            }
+            else if (grid[rowSubGrid + i % SUBGRID_SIZE][columnSubGrid + i / SUBGRID_SIZE] == value)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
