@@ -4,9 +4,8 @@ import java.util.concurrent.Callable;
 
 final class Solver implements Callable<Boolean> {
     private final Grid grid;
-    private int numberOfSteps;
 
-    public Solver(Grid grid) {
+    Solver(Grid grid) {
         this.grid = grid;
     }
 
@@ -32,7 +31,6 @@ final class Solver implements Callable<Boolean> {
             for (int value = 1; value <= GRID_SIZE; value++) {
                 if (grid.isGridValid(row, column, value)) {
                     grid.setValue(row, column, value);
-                    numberOfSteps++;
 
                     if (runSolver(cell + 1)) {
                         return true;
@@ -44,9 +42,5 @@ final class Solver implements Callable<Boolean> {
 
             return false;
         }
-    }
-
-    public void displayNumberOfSteps() {
-        System.out.println("It took " + numberOfSteps + " steps to solve this puzzle. \n");
     }
 }
