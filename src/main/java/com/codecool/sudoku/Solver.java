@@ -1,4 +1,4 @@
-package com.codecool;
+package com.codecool.sudoku;
 
 import java.util.concurrent.Callable;
 
