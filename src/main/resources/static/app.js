@@ -23,6 +23,7 @@ new Vue({
       let formData = new FormData();
       formData.append('file', this.file);
 
+      console.log('upload');
       axios.post('/api/grid', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -30,6 +31,7 @@ new Vue({
       }).then((response) => {
         this.uploaded = true;
         this.showMessage("SUCCESS!!! Your file was uploaded", "alert-success");
+        this.grid = response.data.grid;
       })
         .catch(() => {
          this.showMessage("FAILURE!!! Your file wasn't uploaded", "alert-warning");
