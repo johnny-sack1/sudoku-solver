@@ -10,15 +10,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class FileParser {
-    private String string;
 
-    public FileParser(String s) {
-        this.string = s;
-    }
-
-    private List<Integer> getParsedNumbers() throws IOException {
+    private static List<Integer> getParsedNumbers(String s) throws IOException {
         List<String> strList = new ArrayList<>();
-        StringReader reader = new StringReader(this.string);
+        StringReader reader = new StringReader(s);
         BufferedReader br = new BufferedReader(reader);
         String line = br.readLine();
         while (line != null) {
@@ -32,10 +27,10 @@ public class FileParser {
         return intList;
     }
 
-    public Grid getStartingGrid() {
+    public static Grid getStartingGrid(String s) {
         List<Integer> parsedNumbers = new ArrayList<>();
         try {
-            parsedNumbers = getParsedNumbers();
+            parsedNumbers = getParsedNumbers(s);
         } catch (IOException e) {
             e.printStackTrace();
         }
