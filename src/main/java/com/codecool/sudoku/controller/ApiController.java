@@ -25,13 +25,10 @@ public class ApiController {
 
     @PostMapping(value = "api/grid")
     public Grid setGrid(@RequestParam("file") MultipartFile file) throws IOException {
-
         String fileContent = new String(file.getBytes());
-        Grid grid = (new FileParser(fileContent)).getStartingGrid();
+        Grid grid = FileParser.getStartingGrid(fileContent);
         this.solverService.setGrid(grid);
-        Grid grid1 = this.solverService.getGrid();
-        System.out.println(grid1);
-        return grid1;
+        return this.solverService.getGrid();
     }
 
     @GetMapping(value = "api/grid", produces = MediaType.APPLICATION_JSON_VALUE)
