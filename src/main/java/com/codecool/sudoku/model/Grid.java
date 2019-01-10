@@ -47,11 +47,11 @@ public class Grid {
         for (int i = 0; i < 9; i++) {
             boolean[] m = new boolean[9];
             for (int j = 0; j < 9; j++) {
-                if (grid.getGrid()[i][j] != '0') {
-                    if (m[(int) (grid.getGrid()[i][j] - '1')]) {
+                if (grid.getGrid()[i][j] != 0) {
+                    if (m[(grid.getGrid()[i][j] - 1)]) {
                         return false;
                     }
-                    m[(int) (grid.getGrid()[i][j] - '1')] = true;
+                    m[(grid.getGrid()[i][j] - 1)] = true;
                 }
             }
         }
@@ -60,11 +60,11 @@ public class Grid {
         for (int j = 0; j < 9; j++) {
             boolean[] m = new boolean[9];
             for (int i = 0; i < 9; i++) {
-                if (grid.getGrid()[i][j] != '0') {
-                    if (m[(int) (grid.getGrid()[i][j] - '1')]) {
+                if (grid.getGrid()[i][j] != 0) {
+                    if (m[(int) (grid.getGrid()[i][j] - 1)]) {
                         return false;
                     }
-                    m[(int) (grid.getGrid()[i][j] - '1')] = true;
+                    m[(int) (grid.getGrid()[i][j] - 1)] = true;
                 }
             }
         }
@@ -74,11 +74,11 @@ public class Grid {
             boolean[] m = new boolean[9];
             for (int i = block / 3 * 3; i < block / 3 * 3 + 3; i++) {
                 for (int j = block % 3 * 3; j < block % 3 * 3 + 3; j++) {
-                    if (grid.getGrid()[i][j] != '.') {
-                        if (m[(int) (grid.getGrid()[i][j] - '1')]) {
+                    if (grid.getGrid()[i][j] != 0) {
+                        if (m[(int) (grid.getGrid()[i][j] - 1)]) {
                             return false;
                         }
-                        m[(int) (grid.getGrid()[i][j] - '1')] = true;
+                        m[(int) (grid.getGrid()[i][j] - 1)] = true;
                     }
                 }
             }
