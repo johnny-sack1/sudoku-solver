@@ -16,10 +16,12 @@ public class SudokuSolverService {
     private Grid grid;
 
     public void setGrid(Grid grid) {
+        if (!Grid.isValidSudoku(grid)) throw new IllegalArgumentException("Invalid sudoku board;");
         this.grid = grid;
     }
 
     public Grid getGrid() {
+        this.grid.setTime(this.time);
         return this.grid;
     }
 
