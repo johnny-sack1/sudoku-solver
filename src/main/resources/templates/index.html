@@ -14,8 +14,8 @@
     }
 
     td {
-      height: 30px;
-      width: 30px;
+      height: 50px;
+      width: 50px;
       border: 1px solid;
       text-align: center;
     }
@@ -39,29 +39,67 @@
 </head>
 <body>
 <div id="app">
-  <div class="container">
-    <div class="row">
-      <div class="col-4">
-        <div class="large-12 medium-12 small-12 cell">
-          <label>File
-            <input type="file" id="file" ref="file" v-on:change="submitFile()"/>
-          </label>
-          <button v-on:click="handleFileUpload()">Submit</button>
+  <div class="container-fluid mt-5">
+    <div class="row" v-if="messageAvailable">
+      <div class="col-12">
+        <div class="alert" :class="color" role="alert">
+          {{ message }}
         </div>
       </div>
-      <div class="col-12">
-        <h4 class="mb-0">Solving time: <span v-text="timeInMs"></span> ms
-          <span v-on:click="getGrid" class="btn btn-sm btn-primary">Click</span>
-        </h4>
-        <table>
-          <tr v-for="square in grid">
-            <td v-for="digit in square" v-text="digit"></td>
-          </tr>
-        </table>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">
+            Instruction
+          </div>
+          <div class="card-body">
+            <!--<h5 class="card-title">Special title treatment</h5>-->
+            <p>Sudoku file that you're trying to upload should look like this:<br/>
+            <pre>
+000000001
+900000000
+000770000
+001060400
+000000000
+000000000
+000000000
+000000000
+000000000
+            </pre>
+            Where every digit (from 0 to 9) represents one cell in sudoku grid.
+            </p>
+            <hr>
+            <h6 class="text-uppercase">Upload sudoku board</h6>
+            <input type="file" v-on:change="submitFile()" ref="file"
+                   required>
+            <button v-on:click="handleFileUpload()" class="btn btn-sm btn-success text-uppercase">
+              Submit
+            </button>
+            <hr>
+            <h6 class="text-uppercase">Let gnomes solve your sudoku</h6>
+            <button :disabled="uploaded ? false : true" v-on:click="getGrid"
+                    class="btn btn-sm btn-primary text-uppercase">solve
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="card">
+          <div class="card-header">
+            Board
+          </div>
+          <div class="card-body">
+            <table>
+              <tr v-for="square in grid">
+                <td v-for="digit in square" v-text="digit"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -69,3 +107,4 @@
 <script th:src='app.js' type="module"></script>
 
 </html>
+

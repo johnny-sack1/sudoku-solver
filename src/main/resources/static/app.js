@@ -4,7 +4,13 @@ new Vue({
   el: '#app',
 
   data: {
-    message: 'Hello Vue!', grid: [], time: 0, file: ''
+    message: 'Hello Vue!',
+    grid: [],
+    time: 0,
+    file: '',
+    uploaded: false,
+    messageAvailable: false,
+    color: 'alert-success'
   }, computed: {
 
     timeInMs() {
@@ -14,33 +20,27 @@ new Vue({
 
   methods: {
     handleFileUpload() {
-      /*
-                Initialize the form data
-            */
       let formData = new FormData();
-
-      /*
-          Add the form data we need to submit
-      */
       formData.append('file', this.file);
 
-      /*
-        Make the request to the POST /single-file URL
-      */
       axios.post('/api/grid', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then((response) => {
-        console.log(response.data);
-        console.log('SUCCESS!!');
+        this.uploaded = true;
+        this.showMessage("SUCCESS!!! Your file was uploaded", "alert-success");
       })
         .catch(() => {
-          console.log('FAILURE!!');
+         this.showMessage("FAILURE!!! Your file wasn't uploaded", "alert-warning");
       });
-    }, submitFile() {
+    },
+
+    submitFile() {
       this.file = this.$refs.file.files[0];
-    }, getGrid() {
+    },
+
+    getGrid() {
       axios.get('/api/grid')
           .then((response) => {
             console.log(response);
@@ -48,9 +48,20 @@ new Vue({
             this.time = response.data.time;
             this.consoleLog();
           });
-    }, consoleLog() {
+    },
+
+    consoleLog() {
       console.log(this.grid);
+    },
+    showMessage(message, color) {
+      this.messageAvailable = true;
+      this.message = message;
+      this.color = color;
+
+
+      setTimeout(()=>{
+        this.messageAvailable = false;
+      },2500);
     }
   }
-
 });
