@@ -23,7 +23,6 @@ new Vue({
       let formData = new FormData();
       formData.append('file', this.file);
 
-      console.log('upload');
       axios.post('/api/grid', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -32,9 +31,9 @@ new Vue({
         this.uploaded = true;
         this.showMessage("SUCCESS!!! Your file was uploaded", "alert-success");
         this.grid = response.data.grid;
-      })
-        .catch(() => {
-         this.showMessage("FAILURE!!! Your file wasn't uploaded", "alert-warning");
+      }).catch((error) => {
+        this.showMessage("FAILURE!!! Your file wasn't uploaded: "
+            + error.response.data.message, "alert-warning");
       });
     },
 
@@ -42,28 +41,22 @@ new Vue({
       this.file = this.$refs.file.files[0];
     },
 
-    getGrid() {
+    solveSudoku() {
       axios.get('/api/grid')
           .then((response) => {
-            console.log(response);
             this.grid = response.data.grid;
             this.time = response.data.time;
-            this.consoleLog();
-          });
+          })
     },
 
-    consoleLog() {
-      console.log(this.grid);
-    },
     showMessage(message, color) {
       this.messageAvailable = true;
       this.message = message;
       this.color = color;
 
-
-      setTimeout(()=>{
+      setTimeout(() => {
         this.messageAvailable = false;
-      },2500);
+      }, 1500);
     }
   }
 });

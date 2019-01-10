@@ -35,6 +35,15 @@
     tr:nth-child(3n) td {
       border-bottom: solid;
     }
+
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s;
+    }
+
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+    {
+      opacity: 0;
+    }
   </style>
 </head>
 <body>
@@ -42,9 +51,11 @@
   <div class="container-fluid mt-5">
     <div class="row" v-if="messageAvailable">
       <div class="col-12">
-        <div class="alert" :class="color" role="alert">
-          {{ message }}
-        </div>
+        <transition name="fade">
+          <div class="alert" :class="color" role="alert">
+            {{ message }}
+          </div>
+        </transition>
       </div>
     </div>
     <div class="row">
@@ -54,6 +65,7 @@
             Instruction
           </div>
           <div class="card-body">
+            <p v-if="time > 0">Solving time: {{ timeInMs }} milliseconds</p>
             <!--<h5 class="card-title">Special title treatment</h5>-->
             <p>Sudoku file that you're trying to upload should look like this:<br/>
             <pre>
@@ -71,14 +83,14 @@
             </p>
             <hr>
             <h6 class="text-uppercase">Upload sudoku board</h6>
-            <input type="file" v-on:change="submitFile()" ref="file"
+            <input type="file" v-on:change="submitFile" ref="file"
                    required>
             <button v-on:click="handleFileUpload()" class="btn btn-sm btn-success text-uppercase">
               Submit
             </button>
             <hr>
             <h6 class="text-uppercase">Let gnomes solve your sudoku</h6>
-            <button :disabled="uploaded ? false : true" v-on:click="getGrid"
+            <button :disabled="uploaded ? false : true" v-on:click="solveSudoku"
                     class="btn btn-sm btn-primary text-uppercase">solve
             </button>
           </div>
@@ -87,7 +99,7 @@
       <div class="col-8">
         <div class="card">
           <div class="card-header">
-            Board
+            Sudoku
           </div>
           <div class="card-body">
             <table>
