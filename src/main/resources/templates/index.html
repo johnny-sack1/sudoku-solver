@@ -79,7 +79,8 @@
 000000000
 000000000
             </pre>
-            Where every digit (from 0 to 9) represents one cell in sudoku grid.
+            Where every digit (from 0 to 9) represents one cell in sudoku grid.<br />
+            <span class="text-danger">Remember! Uploaded grid must be a valid one!</span>
             </p>
             <hr>
             <h6 class="text-uppercase">Upload sudoku board</h6>
@@ -97,7 +98,7 @@
         </div>
       </div>
       <div class="col-8">
-        <div class="card">
+        <div class="card" v-if="grid.length > 0">
           <div class="card-header">
             Sudoku
           </div>
