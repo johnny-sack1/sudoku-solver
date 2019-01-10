@@ -41,6 +41,14 @@
 <div id="app">
   <div class="container">
     <div class="row">
+      <div class="col-4">
+        <div class="large-12 medium-12 small-12 cell">
+          <label>File
+            <input type="file" id="file" ref="file" v-on:change="submitFile()"/>
+          </label>
+          <button v-on:click="handleFileUpload()">Submit</button>
+        </div>
+      </div>
       <div class="col-12">
         <h4 class="mb-0">Solving time: <span v-text="timeInMs"></span> ms
           <span v-on:click="getGrid" class="btn btn-sm btn-primary">Click</span>
