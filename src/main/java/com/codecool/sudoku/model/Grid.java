@@ -40,7 +40,7 @@ public class Grid {
         return true;
     }
 
-    public boolean isValidSudoku(Grid grid) {
+    public static boolean isValidSudoku(Grid grid) {
         if (grid.getGrid() == null || grid.getGrid().length != 9 || grid.getGrid()[0].length != 9)
             return false;
         // check each column
