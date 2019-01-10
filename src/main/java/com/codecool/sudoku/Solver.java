@@ -1,6 +1,7 @@
 package com.codecool.sudoku;
 
 import com.codecool.sudoku.model.Grid;
+
 import java.util.concurrent.Callable;
 
 final class Solver implements Callable<Boolean> {
