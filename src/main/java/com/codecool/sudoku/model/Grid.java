@@ -40,6 +40,53 @@ public class Grid {
         return true;
     }
 
+    public boolean isValidSudoku(Grid grid) {
+        if (grid.getGrid() == null || grid.getGrid().length != 9 || grid.getGrid()[0].length != 9)
+            return false;
+        // check each column
+        for (int i = 0; i < 9; i++) {
+            boolean[] m = new boolean[9];
+            for (int j = 0; j < 9; j++) {
+                if (grid.getGrid()[i][j] != '0') {
+                    if (m[(int) (grid.getGrid()[i][j] - '1')]) {
+                        return false;
+                    }
+                    m[(int) (grid.getGrid()[i][j] - '1')] = true;
+                }
+            }
+        }
+
+        //check each row
+        for (int j = 0; j < 9; j++) {
+            boolean[] m = new boolean[9];
+            for (int i = 0; i < 9; i++) {
+                if (grid.getGrid()[i][j] != '0') {
+                    if (m[(int) (grid.getGrid()[i][j] - '1')]) {
+                        return false;
+                    }
+                    m[(int) (grid.getGrid()[i][j] - '1')] = true;
+                }
+            }
+        }
+
+        //check each 3*3 matrix
+        for (int block = 0; block < 9; block++) {
+            boolean[] m = new boolean[9];
+            for (int i = block / 3 * 3; i < block / 3 * 3 + 3; i++) {
+                for (int j = block % 3 * 3; j < block % 3 * 3 + 3; j++) {
+                    if (grid.getGrid()[i][j] != '.') {
+                        if (m[(int) (grid.getGrid()[i][j] - '1')]) {
+                            return false;
+                        }
+                        m[(int) (grid.getGrid()[i][j] - '1')] = true;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
     public int[][] getGrid() {
         return this.grid;
     }
